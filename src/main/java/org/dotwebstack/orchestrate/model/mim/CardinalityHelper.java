@@ -11,7 +11,11 @@ import org.dotwebstack.orchestrate.model.Cardinality;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CardinalityHelper {
 
-  public static Cardinality getCardinality(Kardinaliteit kardinaliteit) {
+  public static Cardinality getCardinalityOrDefault(Kardinaliteit kardinaliteit, Cardinality defaultCardinality) {
+    if (kardinaliteit == null) {
+      return defaultCardinality;
+    }
+
     if (kardinaliteit.isMulti()) {
       return MULTI;
     }

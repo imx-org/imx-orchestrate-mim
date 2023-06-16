@@ -2,7 +2,7 @@ package org.dotwebstack.orchestrate.model.mim;
 
 import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.toUnmodifiableSet;
-import static org.dotwebstack.orchestrate.model.mim.CardinalityHelper.getCardinality;
+import static org.dotwebstack.orchestrate.model.mim.CardinalityHelper.getCardinalityOrDefault;
 import static org.dotwebstack.orchestrate.model.mim.TypeHelper.getValueType;
 import static org.dotwebstack.orchestrate.model.mim.TypeHelper.isScalarLike;
 import java.util.Set;
@@ -14,11 +14,13 @@ import nl.geostandaarden.mim.model.Gegevensgroep;
 import nl.geostandaarden.mim.model.Gegevensgroeptype;
 import nl.geostandaarden.mim.model.GestructureerdDatatype;
 import nl.geostandaarden.mim.model.Informatiemodel;
+import nl.geostandaarden.mim.model.Kardinaliteit;
 import nl.geostandaarden.mim.model.Modelelement;
 import nl.geostandaarden.mim.model.Objecttype;
 import nl.geostandaarden.mim.model.Package;
 import nl.geostandaarden.mim.model.Relatiesoort;
 import org.dotwebstack.orchestrate.model.Attribute;
+import org.dotwebstack.orchestrate.model.Cardinality;
 import org.dotwebstack.orchestrate.model.Model;
 import org.dotwebstack.orchestrate.model.ObjectType;
 import org.dotwebstack.orchestrate.model.ObjectTypeRef;
@@ -130,14 +132,14 @@ public class MimModelMapper {
           .name(attribuutsoort.getNaam())
           .identifier(attribuutsoort.isIdentificerend())
           .type(getValueType(attribuutsoort))
-          .cardinality(getCardinality(attribuutsoort.getKardinaliteit()))
+          .cardinality(getCardinalityOrDefault(attribuutsoort.getKardinaliteit(), Cardinality.OPTIONAL))
           .build();
     } else {
       return Relation.builder()
           .name(attribuutsoort.getNaam())
           .identifier(attribuutsoort.isIdentificerend())
           .target(toObjectTypeRef(attribuutsoort.getDatatype()))
-          .cardinality(getCardinality(attribuutsoort.getKardinaliteit()))
+          .cardinality(getCardinalityOrDefault(attribuutsoort.getKardinaliteit(), Cardinality.OPTIONAL))
           .build();
     }
   }
@@ -148,14 +150,14 @@ public class MimModelMapper {
           .name(dataElement.getNaam())
           .identifier(dataElement.isIdentificerend())
           .type(getValueType(dataElement))
-          .cardinality(getCardinality(dataElement.getKardinaliteit()))
+          .cardinality(getCardinalityOrDefault(dataElement.getKardinaliteit(), Cardinality.OPTIONAL))
           .build();
     } else {
       return Relation.builder()
           .name(dataElement.getNaam())
           .identifier(dataElement.isIdentificerend())
           .target(toObjectTypeRef(dataElement.getDatatype()))
-          .cardinality(getCardinality(dataElement.getKardinaliteit()))
+          .cardinality(getCardinalityOrDefault(dataElement.getKardinaliteit(), Cardinality.OPTIONAL))
           .build();
     }
   }
@@ -164,13 +166,21 @@ public class MimModelMapper {
     var kardinaliteit =
         relatiesoort.getKardinaliteit() == null ? relatiesoort.getKardinaliteitDoel() : relatiesoort.getKardinaliteit();
 
+    var inverseNaam = relatiesoort.getInverseNaam() == null ? relatiesoort.getKenmerken().get("relatienaam inversie") :
+        relatiesoort.getInverseNaam();
+
+    var inverseKardinaliteit =
+        relatiesoort.getInverseKardinaliteit() == null ?
+            Kardinaliteit.parse(relatiesoort.getKenmerken().get("kardinaliteitBron")) :
+            relatiesoort.getInverseKardinaliteit();
+
     return Relation.builder()
         .name(relatiesoort.getNaam())
         .identifier(relatiesoort.isIdentificerend())
         .target(toObjectTypeRef(relatiesoort.getDoel()))
-        .cardinality(getCardinality(kardinaliteit))
-        .inverseName(relatiesoort.getInverseNaam())
-        .inverseCardinality(getCardinality(relatiesoort.getInverseKardinaliteit()))
+        .cardinality(getCardinalityOrDefault(kardinaliteit, Cardinality.OPTIONAL))
+        .inverseName(inverseNaam)
+        .inverseCardinality(getCardinalityOrDefault(inverseKardinaliteit, Cardinality.MULTI))
         .build();
   }
 
@@ -178,7 +188,7 @@ public class MimModelMapper {
     return Relation.builder()
         .name(gegevensgroep.getNaam())
         .target(toObjectTypeRef(gegevensgroep.getType()))
-        .cardinality(getCardinality(gegevensgroep.getKardinaliteit()))
+        .cardinality(getCardinalityOrDefault(gegevensgroep.getKardinaliteit(), Cardinality.OPTIONAL))
         .build();
   }
 
