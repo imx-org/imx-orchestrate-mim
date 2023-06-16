@@ -169,6 +169,8 @@ public class MimModelMapper {
         .identifier(relatiesoort.isIdentificerend())
         .target(toObjectTypeRef(relatiesoort.getDoel()))
         .cardinality(getCardinality(kardinaliteit))
+        .inverseName(relatiesoort.getInverseNaam())
+        .inverseCardinality(getCardinality(relatiesoort.getInverseKardinaliteit()))
         .build();
   }
 
