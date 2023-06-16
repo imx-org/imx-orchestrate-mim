@@ -25,11 +25,8 @@ import org.dotwebstack.orchestrate.model.ObjectTypeRef;
 import org.dotwebstack.orchestrate.model.Property;
 import org.dotwebstack.orchestrate.model.Relation;
 
+@NoArgsConstructor(staticName = "getInstance")
 public class MimModelMapper {
-
-  public static MimModelMapper getInstance() {
-    return new MimModelMapper();
-  }
 
   public Model fromModel(String alias, Informatiemodel informatiemodel) {
     var modelBuilder = Model.builder()
