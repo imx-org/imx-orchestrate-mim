@@ -161,11 +161,14 @@ public class MimModelMapper {
   }
 
   private Relation toRelation(Relatiesoort relatiesoort) {
+    var kardinaliteit =
+        relatiesoort.getKardinaliteit() == null ? relatiesoort.getKardinaliteitDoel() : relatiesoort.getKardinaliteit();
+
     return Relation.builder()
         .name(relatiesoort.getNaam())
         .identifier(relatiesoort.isIdentificerend())
         .target(toObjectTypeRef(relatiesoort.getDoel()))
-        .cardinality(getCardinality(relatiesoort.getKardinaliteit()))
+        .cardinality(getCardinality(kardinaliteit))
         .build();
   }
 
