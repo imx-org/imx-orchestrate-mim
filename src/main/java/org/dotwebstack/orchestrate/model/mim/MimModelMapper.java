@@ -163,24 +163,13 @@ public class MimModelMapper {
   }
 
   private Relation toRelation(Relatiesoort relatiesoort) {
-    var kardinaliteit =
-        relatiesoort.getKardinaliteit() == null ? relatiesoort.getKardinaliteitDoel() : relatiesoort.getKardinaliteit();
-
-    var inverseNaam = relatiesoort.getInverseNaam() == null ? relatiesoort.getKenmerken().get("relatienaam inversie") :
-        relatiesoort.getInverseNaam();
-
-    var inverseKardinaliteit =
-        relatiesoort.getInverseKardinaliteit() == null ?
-            Kardinaliteit.parse(relatiesoort.getKenmerken().get("kardinaliteitBron")) :
-            relatiesoort.getInverseKardinaliteit();
-
     return Relation.builder()
         .name(relatiesoort.getNaam())
         .identifier(relatiesoort.isIdentificerend())
         .target(toObjectTypeRef(relatiesoort.getDoel()))
-        .cardinality(getCardinalityOrDefault(kardinaliteit, Cardinality.OPTIONAL))
-        .inverseName(inverseNaam)
-        .inverseCardinality(getCardinalityOrDefault(inverseKardinaliteit, Cardinality.MULTI))
+        .cardinality(getCardinalityOrDefault(relatiesoort.getKardinaliteit(), Cardinality.OPTIONAL))
+        .inverseName(relatiesoort.getInverseNaam())
+        .inverseCardinality(getCardinalityOrDefault(relatiesoort.getInverseKardinaliteit(), Cardinality.MULTI))
         .build();
   }
 
