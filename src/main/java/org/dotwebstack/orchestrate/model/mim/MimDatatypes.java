@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class MimDatatypes {
+
   public static final String CHARACTER_STRING = "CharacterString";
 
   public static final String INTEGER = "Integer";

@@ -2,15 +2,17 @@ package org.dotwebstack.orchestrate.model.mim;
 
 import static java.util.function.Predicate.isEqual;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.BOOLEAN;
 import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.CHARACTER_STRING;
 import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.DATE;
 import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.DATETIME;
 import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.DECIMAL;
-import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.INTEGER;
 import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.REAL;
 import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.URI;
 import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.YEAR;
+import static org.dotwebstack.orchestrate.model.types.ScalarTypes.DOUBLE;
+import static org.dotwebstack.orchestrate.model.types.ScalarTypes.FLOAT;
+import static org.dotwebstack.orchestrate.model.types.ScalarTypes.STRING;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -24,14 +26,11 @@ import nl.geostandaarden.mim.model.Keuze;
 import nl.geostandaarden.mim.model.Modelelement;
 import nl.geostandaarden.mim.model.PrimitiefDatatype;
 import nl.geostandaarden.mim.model.Referentielijst;
-import org.dotwebstack.orchestrate.ext.spatial.GeometryType;
-import org.dotwebstack.orchestrate.model.AttributeType;
-import org.dotwebstack.orchestrate.model.types.ScalarTypes;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TypeHelper {
 
-  public static AttributeType getValueType(Attribuutsoort attribuutsoort) {
+  public static String getValueTypeName(Attribuutsoort attribuutsoort) {
     var datatype = attribuutsoort.getDatatype();
     var datatypeKeuze = attribuutsoort.getDatatypekeuze();
 
@@ -41,25 +40,27 @@ public class TypeHelper {
     }
 
     if (datatypeKeuze != null) {
-      return getValueType(datatypeKeuze);
+      return getValueTypeName(datatypeKeuze);
     }
 
-    return getValueType(datatype);
+    return getValueTypeName(datatype);
   }
 
-  public static AttributeType getValueType(DataElement dataElement) {
+  public static String getValueTypeName(DataElement dataElement) {
     var datatype = dataElement.getDatatype();
 
-    return getValueType(datatype);
+    return getValueTypeName(datatype);
   }
 
-  public static AttributeType getValueType(Keuze keuze) {
+  public static String getValueTypeName(Keuze keuze) {
     if (keuze.getDatatypen()
         .stream()
         .allMatch(dt -> dt.getNaam()
             .startsWith("GM_"))) {
-      return new GeometryType();
-    } else if (keuze.getDatatypen()
+      return "Geometry";
+    }
+
+    if (keuze.getDatatypen()
         .stream()
         .map(TypeHelper::resolveName)
         .distinct()
@@ -67,11 +68,11 @@ public class TypeHelper {
       return keuze.getDatatypen()
           .stream()
           .findFirst()
-          .map(TypeHelper::getValueType)
+          .map(TypeHelper::getValueTypeName)
           .orElseThrow();
-    } else {
-      throw new IllegalArgumentException(String.format("Unsupported MIM Keuze encountered :%s", keuze));
     }
+
+    throw new IllegalArgumentException(String.format("Unsupported MIM Keuze encountered: %s", keuze));
   }
 
   private static String resolveName(Datatype datatype) {
@@ -88,37 +89,33 @@ public class TypeHelper {
         .orElseThrow();
   }
 
-  public static AttributeType getValueType(@NonNull Datatype datatype) {
-
+  public static String getValueTypeName(@NonNull Datatype datatype) {
     if (datatype instanceof Enumeratie || datatype instanceof Codelijst) {
-      return ScalarTypes.STRING;
+      return STRING.getName();
     }
 
     if (datatype instanceof PrimitiefDatatype primitiefDatatype &&
         isNotBlank((primitiefDatatype).getFormeelPatroon())) {
-      return ScalarTypes.STRING;
+      return STRING.getName();
     }
 
     if (datatype.getSupertypes(true).stream().map(Modelelement::getNaam)
         .anyMatch(isEqual(CHARACTER_STRING))) {
-      return ScalarTypes.STRING;
+      return STRING.getName();
     }
 
     if (datatype.getNaam()
         .startsWith("GM_")) {
-      return new GeometryType();
+      return "Geometry";
     }
 
     var resolvedName = resolveName(datatype);
 
     return switch (resolvedName) {
-      case CHARACTER_STRING, DATE, DATETIME, YEAR, URI -> ScalarTypes.STRING;
-      case INTEGER -> ScalarTypes.INTEGER;
-      case BOOLEAN -> ScalarTypes.BOOLEAN;
-      case REAL -> ScalarTypes.FLOAT;
-      case DECIMAL -> ScalarTypes.DOUBLE;
-      default -> throw new IllegalArgumentException(
-          String.format("No scalar type mapping for datatype '%s'", datatype));
+      case CHARACTER_STRING, DATE, DATETIME, YEAR, URI -> STRING.getName();
+      case REAL -> FLOAT.getName();
+      case DECIMAL -> DOUBLE.getName();
+      default -> resolvedName;
     };
   }
 

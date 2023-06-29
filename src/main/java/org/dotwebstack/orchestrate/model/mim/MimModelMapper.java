@@ -3,18 +3,19 @@ package org.dotwebstack.orchestrate.model.mim;
 import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.toUnmodifiableSet;
 import static org.dotwebstack.orchestrate.model.mim.CardinalityHelper.getCardinalityOrDefault;
-import static org.dotwebstack.orchestrate.model.mim.TypeHelper.getValueType;
+import static org.dotwebstack.orchestrate.model.mim.TypeHelper.getValueTypeName;
 import static org.dotwebstack.orchestrate.model.mim.TypeHelper.isScalarLike;
+
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import nl.geostandaarden.mim.model.Attribuutsoort;
 import nl.geostandaarden.mim.model.DataElement;
 import nl.geostandaarden.mim.model.Gegevensgroep;
 import nl.geostandaarden.mim.model.Gegevensgroeptype;
 import nl.geostandaarden.mim.model.GestructureerdDatatype;
 import nl.geostandaarden.mim.model.Informatiemodel;
-import nl.geostandaarden.mim.model.Kardinaliteit;
 import nl.geostandaarden.mim.model.Modelelement;
 import nl.geostandaarden.mim.model.Objecttype;
 import nl.geostandaarden.mim.model.Package;
@@ -26,13 +27,15 @@ import org.dotwebstack.orchestrate.model.ObjectType;
 import org.dotwebstack.orchestrate.model.ObjectTypeRef;
 import org.dotwebstack.orchestrate.model.Property;
 import org.dotwebstack.orchestrate.model.Relation;
+import org.dotwebstack.orchestrate.model.types.ValueTypeRegistry;
 
-@NoArgsConstructor(staticName = "getInstance")
+@RequiredArgsConstructor
 public class MimModelMapper {
 
-  public Model fromModel(String alias, Informatiemodel informatiemodel) {
-    var modelBuilder = Model.builder()
-        .alias(alias);
+  private final ValueTypeRegistry valueTypeRegistry;
+
+  public Model fromModel(Informatiemodel informatiemodel) {
+    var modelBuilder = Model.builder();
 
     informatiemodel.getPackages()
         .forEach(mimPackage -> processPackage(mimPackage, modelBuilder));
@@ -88,7 +91,6 @@ public class MimModelMapper {
   }
 
   private Set<Property> processProperties(Objecttype objecttype) {
-
     return Stream.of(objecttype.getAttribuutsoorten(true)
                 .stream()
                 .map(this::toProperty),
@@ -104,7 +106,6 @@ public class MimModelMapper {
   }
 
   private Set<Property> processProperties(Gegevensgroeptype gegevensgroeptype) {
-
     return Stream.of(gegevensgroeptype.getAttribuutsoorten()
                 .stream()
                 .map(this::toProperty),
@@ -128,38 +129,46 @@ public class MimModelMapper {
 
   private Property toProperty(Attribuutsoort attribuutsoort) {
     if (isScalarLike(attribuutsoort)) {
+      var valueTypeName = TypeHelper.getValueTypeName(attribuutsoort);
+      var valueType = valueTypeRegistry.getValueTypeFactory(valueTypeName)
+          .create(valueTypeName.equals("Geometry") ? Map.of("srid", 28992) : Map.of());
+
       return Attribute.builder()
           .name(attribuutsoort.getNaam())
           .identifier(attribuutsoort.isIdentificerend())
-          .type(getValueType(attribuutsoort))
-          .cardinality(getCardinalityOrDefault(attribuutsoort.getKardinaliteit(), Cardinality.OPTIONAL))
-          .build();
-    } else {
-      return Relation.builder()
-          .name(attribuutsoort.getNaam())
-          .identifier(attribuutsoort.isIdentificerend())
-          .target(toObjectTypeRef(attribuutsoort.getDatatype()))
+          .type(valueType)
           .cardinality(getCardinalityOrDefault(attribuutsoort.getKardinaliteit(), Cardinality.OPTIONAL))
           .build();
     }
+
+    return Relation.builder()
+        .name(attribuutsoort.getNaam())
+        .identifier(attribuutsoort.isIdentificerend())
+        .target(toObjectTypeRef(attribuutsoort.getDatatype()))
+        .cardinality(getCardinalityOrDefault(attribuutsoort.getKardinaliteit(), Cardinality.OPTIONAL))
+        .build();
   }
 
   private Property toProperty(DataElement dataElement) {
     if (isScalarLike(dataElement)) {
+      var valueTypeName = TypeHelper.getValueTypeName(dataElement);
+      var valueType = valueTypeRegistry.getValueTypeFactory(valueTypeName)
+          .create(valueTypeName.equals("Geometry") ? Map.of("srid", 28992) : Map.of());
+
       return Attribute.builder()
           .name(dataElement.getNaam())
           .identifier(dataElement.isIdentificerend())
-          .type(getValueType(dataElement))
-          .cardinality(getCardinalityOrDefault(dataElement.getKardinaliteit(), Cardinality.OPTIONAL))
-          .build();
-    } else {
-      return Relation.builder()
-          .name(dataElement.getNaam())
-          .identifier(dataElement.isIdentificerend())
-          .target(toObjectTypeRef(dataElement.getDatatype()))
+          .type(valueType)
           .cardinality(getCardinalityOrDefault(dataElement.getKardinaliteit(), Cardinality.OPTIONAL))
           .build();
     }
+
+    return Relation.builder()
+        .name(dataElement.getNaam())
+        .identifier(dataElement.isIdentificerend())
+        .target(toObjectTypeRef(dataElement.getDatatype()))
+        .cardinality(getCardinalityOrDefault(dataElement.getKardinaliteit(), Cardinality.OPTIONAL))
+        .build();
   }
 
   private Relation toRelation(Relatiesoort relatiesoort) {
