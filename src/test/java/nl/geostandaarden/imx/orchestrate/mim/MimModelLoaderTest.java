@@ -1,12 +1,12 @@
-package org.dotwebstack.orchestrate.model.mim;
+package nl.geostandaarden.imx.orchestrate.mim;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URISyntaxException;
 import java.nio.file.Path;
+import nl.geostandaarden.imx.orchestrate.ext.spatial.GeometryTypeFactory;
+import nl.geostandaarden.imx.orchestrate.model.types.ValueTypeRegistry;
 import nl.geostandaarden.mim.parser.xml.ModelParser;
-import org.dotwebstack.orchestrate.ext.spatial.GeometryTypeFactory;
-import org.dotwebstack.orchestrate.model.types.ValueTypeRegistry;
 import org.junit.jupiter.api.Test;
 
 class MimModelLoaderTest {

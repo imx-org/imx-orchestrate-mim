@@ -1,12 +1,13 @@
-package org.dotwebstack.orchestrate.model.mim;
+package nl.geostandaarden.imx.orchestrate.mim;
 
-import static org.dotwebstack.orchestrate.model.Cardinality.MULTI;
-import static org.dotwebstack.orchestrate.model.Cardinality.OPTIONAL;
-import static org.dotwebstack.orchestrate.model.Cardinality.REQUIRED;
+import static nl.geostandaarden.imx.orchestrate.model.Cardinality.MULTI;
+import static nl.geostandaarden.imx.orchestrate.model.Cardinality.OPTIONAL;
+import static nl.geostandaarden.imx.orchestrate.model.Cardinality.REQUIRED;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import nl.geostandaarden.imx.orchestrate.model.Cardinality;
 import nl.geostandaarden.mim.model.Kardinaliteit;
-import org.dotwebstack.orchestrate.model.Cardinality;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CardinalityHelper {

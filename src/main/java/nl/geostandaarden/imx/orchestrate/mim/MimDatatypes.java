@@ -1,4 +1,4 @@
-package org.dotwebstack.orchestrate.model.mim;
+package nl.geostandaarden.imx.orchestrate.mim;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

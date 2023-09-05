@@ -1,4 +1,4 @@
-package org.dotwebstack.orchestrate.model.mim;
+package nl.geostandaarden.imx.orchestrate.mim;
 
 public class ResourceLoadersException extends RuntimeException {
 

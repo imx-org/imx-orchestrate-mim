@@ -1,17 +1,10 @@
-package org.dotwebstack.orchestrate.model.mim;
+package nl.geostandaarden.imx.orchestrate.mim;
 
 import static java.util.function.Predicate.isEqual;
+import static nl.geostandaarden.imx.orchestrate.model.types.ScalarTypes.DOUBLE;
+import static nl.geostandaarden.imx.orchestrate.model.types.ScalarTypes.FLOAT;
+import static nl.geostandaarden.imx.orchestrate.model.types.ScalarTypes.STRING;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.CHARACTER_STRING;
-import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.DATE;
-import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.DATETIME;
-import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.DECIMAL;
-import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.REAL;
-import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.URI;
-import static org.dotwebstack.orchestrate.model.mim.MimDatatypes.YEAR;
-import static org.dotwebstack.orchestrate.model.types.ScalarTypes.DOUBLE;
-import static org.dotwebstack.orchestrate.model.types.ScalarTypes.FLOAT;
-import static org.dotwebstack.orchestrate.model.types.ScalarTypes.STRING;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -100,7 +93,7 @@ public class TypeHelper {
     }
 
     if (datatype.getSupertypes(true).stream().map(Modelelement::getNaam)
-        .anyMatch(isEqual(CHARACTER_STRING))) {
+        .anyMatch(isEqual(MimDatatypes.CHARACTER_STRING))) {
       return STRING.getName();
     }
 
@@ -112,9 +105,9 @@ public class TypeHelper {
     var resolvedName = resolveName(datatype);
 
     return switch (resolvedName) {
-      case CHARACTER_STRING, DATE, DATETIME, YEAR, URI -> STRING.getName();
-      case REAL -> FLOAT.getName();
-      case DECIMAL -> DOUBLE.getName();
+      case MimDatatypes.CHARACTER_STRING, MimDatatypes.DATE, MimDatatypes.DATETIME, MimDatatypes.YEAR, MimDatatypes.URI -> STRING.getName();
+      case MimDatatypes.REAL -> FLOAT.getName();
+      case MimDatatypes.DECIMAL -> DOUBLE.getName();
       default -> resolvedName;
     };
   }

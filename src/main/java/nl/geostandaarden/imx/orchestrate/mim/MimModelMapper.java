@@ -1,15 +1,22 @@
-package org.dotwebstack.orchestrate.model.mim;
+package nl.geostandaarden.imx.orchestrate.mim;
 
 import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.toUnmodifiableSet;
-import static org.dotwebstack.orchestrate.model.mim.CardinalityHelper.getCardinalityOrDefault;
-import static org.dotwebstack.orchestrate.model.mim.TypeHelper.getValueTypeName;
-import static org.dotwebstack.orchestrate.model.mim.TypeHelper.isScalarLike;
+import static nl.geostandaarden.imx.orchestrate.mim.CardinalityHelper.getCardinalityOrDefault;
+import static nl.geostandaarden.imx.orchestrate.mim.TypeHelper.isScalarLike;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
+import nl.geostandaarden.imx.orchestrate.model.Attribute;
+import nl.geostandaarden.imx.orchestrate.model.Cardinality;
+import nl.geostandaarden.imx.orchestrate.model.Model;
+import nl.geostandaarden.imx.orchestrate.model.ObjectType;
+import nl.geostandaarden.imx.orchestrate.model.ObjectTypeRef;
+import nl.geostandaarden.imx.orchestrate.model.Property;
+import nl.geostandaarden.imx.orchestrate.model.Relation;
+import nl.geostandaarden.imx.orchestrate.model.types.ValueTypeRegistry;
 import nl.geostandaarden.mim.model.Attribuutsoort;
 import nl.geostandaarden.mim.model.DataElement;
 import nl.geostandaarden.mim.model.Gegevensgroep;
@@ -20,14 +27,6 @@ import nl.geostandaarden.mim.model.Modelelement;
 import nl.geostandaarden.mim.model.Objecttype;
 import nl.geostandaarden.mim.model.Package;
 import nl.geostandaarden.mim.model.Relatiesoort;
-import org.dotwebstack.orchestrate.model.Attribute;
-import org.dotwebstack.orchestrate.model.Cardinality;
-import org.dotwebstack.orchestrate.model.Model;
-import org.dotwebstack.orchestrate.model.ObjectType;
-import org.dotwebstack.orchestrate.model.ObjectTypeRef;
-import org.dotwebstack.orchestrate.model.Property;
-import org.dotwebstack.orchestrate.model.Relation;
-import org.dotwebstack.orchestrate.model.types.ValueTypeRegistry;
 
 @RequiredArgsConstructor
 public class MimModelMapper {
