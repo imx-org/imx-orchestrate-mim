@@ -23,7 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <slf4j.version>2.0.9</slf4j.version>
-        <lombok.version>1.18.28</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
         <jackson.version>2.15.2</jackson.version>
         <commons-lang3.version>3.13.0</commons-lang3.version>
         <orchestrate.version>0.0.1-SNAPSHOT</orchestrate.version>
