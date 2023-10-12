@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import nl.geostandaarden.imx.orchestrate.ext.spatial.GeometryTypeFactory;
+import nl.geostandaarden.imx.orchestrate.ext.spatial.geometry.GeometryTypeFactory;
 import nl.geostandaarden.imx.orchestrate.model.types.ValueTypeRegistry;
 import nl.geostandaarden.mim.parser.xml.ModelParser;
 import org.junit.jupiter.api.Test;
