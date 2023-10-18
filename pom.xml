@@ -26,6 +26,10 @@
 
     <repositories>
         <repository>
+            <id>imx-orchestrate</id>
+            <url>https://maven.pkg.github.com/imx-org/imx-orchestrate</url>
+        </repository>
+        <repository>
             <id>imx-orchestrate-mim</id>
             <url>https://maven.pkg.github.com/imx-org/imx-orchestrate-mim</url>
         </repository>
