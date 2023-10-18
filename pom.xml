@@ -306,7 +306,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/imx-org/imx-orchestrate</url>
+            <url>https://maven.pkg.github.com/imx-org/imx-orchestrate-mim</url>
         </repository>
     </distributionManagement>
 </project>
