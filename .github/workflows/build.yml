@@ -16,5 +16,5 @@ jobs:
       - name: Compile & analyze
         run: mvn -B verify sonar:sonar -Pcoverage
         env:
-          GITHUB_TOKEN: ${{ secrets.PKG_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

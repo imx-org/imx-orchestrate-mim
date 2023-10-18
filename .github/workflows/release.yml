@@ -27,4 +27,4 @@ jobs:
           mvn -B release:prepare release:perform
           gh release create $VERSION_TAG --generate-notes
         env:
-          GITHUB_TOKEN: ${{ secrets.PKG_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
