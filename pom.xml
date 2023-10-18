@@ -24,6 +24,13 @@
         <tag>HEAD</tag>
     </scm>
 
+    <repositories>
+        <repository>
+            <id>imx-orchestrate-mim</id>
+            <url>https://maven.pkg.github.com/imx-org/imx-orchestrate-mim</url>
+        </repository>
+    </repositories>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
