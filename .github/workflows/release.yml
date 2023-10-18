@@ -1,0 +1,30 @@
+name: Release
+
+on: [workflow_dispatch]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: maven
+      - name: Configure Git user
+        run: |
+          git config user.name "actions-user"
+          git config user.email "actions@github.com"
+      - name: Release
+        run: |
+          export SNAPSHOT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          export VERSION_TAG=v${SNAPSHOT_VERSION%%-*}
+          mvn -B release:prepare release:perform
+          gh release create $VERSION_TAG --generate-notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
