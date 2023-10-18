@@ -34,12 +34,10 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <slf4j.version>2.0.9</slf4j.version>
-        <lombok.version>1.18.30</lombok.version>
-        <jackson.version>2.15.3</jackson.version>
-        <commons-lang3.version>3.13.0</commons-lang3.version>
         <orchestrate.version>0.0.9</orchestrate.version>
         <mim-sdk.version>1.0.1</mim-sdk.version>
+        <lombok.version>1.18.30</lombok.version>
+        <commons-lang3.version>3.13.0</commons-lang3.version>
         <auto-service.version>1.1.1</auto-service.version>
         <junit.version>5.10.0</junit.version>
         <assertj.version>3.24.2</assertj.version>
@@ -48,7 +46,6 @@
         <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
         <sonar.organization>imx-org</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../report-aggregate/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.1.2</maven-failsafe-plugin.version>
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
@@ -58,20 +55,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
             <groupId>nl.geostandaarden.imx.orchestrate</groupId>
             <artifactId>orchestrate-model</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>nl.geostandaarden.imx.orchestrate</groupId>
-            <artifactId>orchestrate-ext-spatial</artifactId>
         </dependency>
         <dependency>
             <groupId>nl.kadaster.dhub.mim</groupId>
@@ -82,6 +67,10 @@
             <artifactId>mim-parser-xml</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
@@ -90,6 +79,11 @@
             <artifactId>auto-service-annotations</artifactId>
         </dependency>
         <!-- Test dependencies -->
+        <dependency>
+            <groupId>nl.geostandaarden.imx.orchestrate</groupId>
+            <artifactId>orchestrate-ext-spatial</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -119,18 +113,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.fasterxml.jackson</groupId>
-                <artifactId>jackson-bom</artifactId>
-                <version>${jackson.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
@@ -181,11 +163,6 @@
                 <version>${mockito.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-simple</artifactId>
-                <version>${slf4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.assertj</groupId>
