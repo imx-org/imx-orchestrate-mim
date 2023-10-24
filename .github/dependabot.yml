@@ -8,5 +8,7 @@ registries:
 updates:
   - package-ecosystem: maven
     directory: "/"
+    registries:
+      - maven-github
     schedule:
       interval: daily
