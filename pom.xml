@@ -39,7 +39,7 @@
         <lombok.version>1.18.30</lombok.version>
         <commons-lang3.version>3.13.0</commons-lang3.version>
         <auto-service.version>1.1.1</auto-service.version>
-        <junit.version>5.10.0</junit.version>
+        <junit.version>5.10.1</junit.version>
         <assertj.version>3.24.2</assertj.version>
         <mockito.version>5.7.0</mockito.version>
         <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
