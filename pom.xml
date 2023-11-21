@@ -5,7 +5,7 @@
     <groupId>nl.geostandaarden.imx.orchestrate.mim</groupId>
     <artifactId>orchestrate-mim</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.4</version>
 
     <licenses>
         <license>
@@ -19,7 +19,7 @@
         <connection>scm:git:${project.scm.url}</connection>
         <developerConnection>scm:git:${project.scm.url}</developerConnection>
         <url>https://github.com/imx-org/imx-orchestrate-mim.git</url>
-        <tag>HEAD</tag>
+        <tag>v0.0.4</tag>
     </scm>
 
     <repositories>
