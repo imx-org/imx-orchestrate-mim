@@ -34,7 +34,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <orchestrate.version>0.0.12</orchestrate.version>
+        <orchestrate.version>0.0.13</orchestrate.version>
         <mim-sdk.version>1.0.1</mim-sdk.version>
         <lombok.version>1.18.30</lombok.version>
         <commons-lang3.version>3.13.0</commons-lang3.version>
