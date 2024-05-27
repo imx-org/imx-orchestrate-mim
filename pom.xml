@@ -40,7 +40,7 @@
         <commons-lang3.version>3.14.0</commons-lang3.version>
         <auto-service.version>1.1.1</auto-service.version>
         <junit.version>5.10.2</junit.version>
-        <assertj.version>3.25.3</assertj.version>
+        <assertj.version>3.26.0</assertj.version>
         <mockito.version>5.11.0</mockito.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <sonar-maven-plugin.version>3.11.0.3922</sonar-maven-plugin.version>
