@@ -43,7 +43,7 @@
         <assertj.version>3.25.3</assertj.version>
         <mockito.version>5.11.0</mockito.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
-        <sonar-maven-plugin.version>3.11.0.3922</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>4.0.0.4121</sonar-maven-plugin.version>
         <sonar.organization>imx-org</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
