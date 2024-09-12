@@ -13,7 +13,7 @@ class MimModelLoaderTest {
 
   @Test
   void test() throws URISyntaxException {
-    var sourcePath = Path.of(ClassLoader.getSystemResource("mimxml-imx-geo.xml").toURI());
+    var sourcePath = Path.of(ClassLoader.getSystemResource("Fietsenwinkel.xml").toURI());
     var mimModel = ModelParser.parse(sourcePath);
     var valueTypeRegistry = new ValueTypeRegistry()
         .register(new GeometryTypeFactory());
