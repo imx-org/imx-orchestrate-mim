@@ -5,7 +5,7 @@
     <groupId>nl.geostandaarden.imx.orchestrate.mim</groupId>
     <artifactId>orchestrate-mim</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.7-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
 
     <licenses>
         <license>
@@ -35,7 +35,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <orchestrate.version>0.1.8</orchestrate.version>
-        <mim-sdk.version>1.0.1</mim-sdk.version>
+        <mim-sdk.version>1.1.0</mim-sdk.version>
         <lombok.version>1.18.34</lombok.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <auto-service.version>1.1.1</auto-service.version>

@@ -95,6 +95,7 @@ public class MimModelMapper {
                 .map(this::toProperty),
             objecttype.getRelatiesoorten(true)
                 .stream()
+                .filter(relatiesoort -> relatiesoort.getDoel() != null)
                 .map(this::toRelation),
             objecttype.getGegevensgroepen(true)
                 .stream()
