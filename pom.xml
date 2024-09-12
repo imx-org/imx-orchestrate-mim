@@ -5,7 +5,7 @@
     <groupId>nl.geostandaarden.imx.orchestrate.mim</groupId>
     <artifactId>orchestrate-mim</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.7-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
 
     <licenses>
         <license>
