@@ -41,7 +41,7 @@
         <auto-service.version>1.1.1</auto-service.version>
         <junit.version>5.11.2</junit.version>
         <assertj.version>3.26.3</assertj.version>
-        <mockito.version>5.14.1</mockito.version>
+        <mockito.version>5.14.2</mockito.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <sonar-maven-plugin.version>4.0.0.4121</sonar-maven-plugin.version>
         <sonar.organization>imx-org</sonar.organization>
