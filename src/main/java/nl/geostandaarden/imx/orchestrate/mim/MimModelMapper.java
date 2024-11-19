@@ -63,10 +63,6 @@ public class MimModelMapper {
   private ObjectType toObjectType(Objecttype objecttype) {
     return ObjectType.builder()
         .name(objecttype.getNaam())
-        .supertypes(objecttype.getSupertypes()
-                .stream()
-                .map(Objecttype::getNaam)
-                .toList())
         .properties(processProperties(objecttype))
         .build();
   }
