@@ -1,11 +1,13 @@
 package nl.geostandaarden.imx.orchestrate.mim;
 
+import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.toUnmodifiableSet;
 import static nl.geostandaarden.imx.orchestrate.mim.MultiplicityHelper.getMultiplicityOrDefault;
 import static nl.geostandaarden.imx.orchestrate.mim.TypeHelper.isScalarLike;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import nl.geostandaarden.imx.orchestrate.model.Attribute;
@@ -44,6 +46,7 @@ public class MimModelMapper {
   private void processPackage(Package mimPackage, Model.ModelBuilder modelBuilder) {
     mimPackage.getObjecttypen()
         .stream()
+        .filter(not(Objecttype::isIndicatieAbstractObject))
         .map(this::toObjectType)
         .forEach(modelBuilder::objectType);
 
@@ -82,14 +85,14 @@ public class MimModelMapper {
   }
 
   private Set<Property> processProperties(Objecttype objecttype) {
-    return Stream.of(objecttype.getAttribuutsoorten()
+    return Stream.of(objecttype.getAttribuutsoorten(true)
                 .stream()
                 .map(this::toProperty),
-            objecttype.getRelatiesoorten()
+            objecttype.getRelatiesoorten(true)
                 .stream()
                 .filter(relatiesoort -> relatiesoort.getDoel() != null)
                 .map(this::toRelation),
-            objecttype.getGegevensgroepen()
+            objecttype.getGegevensgroepen(true)
                 .stream()
                 .map(this::toRelation))
         .reduce(Stream::concat)
