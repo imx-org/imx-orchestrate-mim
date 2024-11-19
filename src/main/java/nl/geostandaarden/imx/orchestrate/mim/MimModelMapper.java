@@ -2,16 +2,17 @@ package nl.geostandaarden.imx.orchestrate.mim;
 
 import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.toUnmodifiableSet;
-import static nl.geostandaarden.imx.orchestrate.mim.CardinalityHelper.getCardinalityOrDefault;
+import static nl.geostandaarden.imx.orchestrate.mim.MultiplicityHelper.getMultiplicityOrDefault;
 import static nl.geostandaarden.imx.orchestrate.mim.TypeHelper.isScalarLike;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import nl.geostandaarden.imx.orchestrate.model.Attribute;
-import nl.geostandaarden.imx.orchestrate.model.Cardinality;
 import nl.geostandaarden.imx.orchestrate.model.Model;
+import nl.geostandaarden.imx.orchestrate.model.Multiplicity;
 import nl.geostandaarden.imx.orchestrate.model.ObjectType;
 import nl.geostandaarden.imx.orchestrate.model.ObjectTypeRef;
 import nl.geostandaarden.imx.orchestrate.model.Property;
@@ -63,30 +64,24 @@ public class MimModelMapper {
   }
 
   private ObjectType toObjectType(Objecttype objecttype) {
-    var objectTypeBuilder = ObjectType.builder();
-
-    objectTypeBuilder.name(objecttype.getNaam())
-        .properties(processProperties(objecttype));
-
-    return objectTypeBuilder.build();
+    return ObjectType.builder()
+        .name(objecttype.getNaam())
+        .properties(processProperties(objecttype))
+        .build();
   }
 
   private ObjectType toObjectType(Gegevensgroeptype gegevensgroeptype) {
-    var objectTypeBuilder = ObjectType.builder();
-
-    objectTypeBuilder.name(gegevensgroeptype.getNaam())
-        .properties(processProperties(gegevensgroeptype));
-
-    return objectTypeBuilder.build();
+    return ObjectType.builder()
+        .name(gegevensgroeptype.getNaam())
+        .properties(processProperties(gegevensgroeptype))
+        .build();
   }
 
   private ObjectType toObjectType(GestructureerdDatatype gestructureerdDatatype) {
-    var objectTypeBuilder = ObjectType.builder();
-
-    objectTypeBuilder.name(gestructureerdDatatype.getNaam())
-        .properties(processProperties(gestructureerdDatatype));
-
-    return objectTypeBuilder.build();
+    return ObjectType.builder()
+        .name(gestructureerdDatatype.getNaam())
+        .properties(processProperties(gestructureerdDatatype))
+        .build();
   }
 
   private Set<Property> processProperties(Objecttype objecttype) {
@@ -137,7 +132,7 @@ public class MimModelMapper {
           .name(attribuutsoort.getNaam())
           .identifier(attribuutsoort.isIdentificerend())
           .type(valueType)
-          .cardinality(getCardinalityOrDefault(attribuutsoort.getKardinaliteit(), Cardinality.OPTIONAL))
+          .multiplicity(getMultiplicityOrDefault(attribuutsoort.getKardinaliteit(), Multiplicity.OPTIONAL))
           .build();
     }
 
@@ -145,7 +140,7 @@ public class MimModelMapper {
         .name(attribuutsoort.getNaam())
         .identifier(attribuutsoort.isIdentificerend())
         .target(toObjectTypeRef(attribuutsoort.getDatatype()))
-        .cardinality(getCardinalityOrDefault(attribuutsoort.getKardinaliteit(), Cardinality.OPTIONAL))
+        .multiplicity(getMultiplicityOrDefault(attribuutsoort.getKardinaliteit(), Multiplicity.OPTIONAL))
         .build();
   }
 
@@ -159,7 +154,7 @@ public class MimModelMapper {
           .name(dataElement.getNaam())
           .identifier(dataElement.isIdentificerend())
           .type(valueType)
-          .cardinality(getCardinalityOrDefault(dataElement.getKardinaliteit(), Cardinality.OPTIONAL))
+          .multiplicity(getMultiplicityOrDefault(dataElement.getKardinaliteit(), Multiplicity.OPTIONAL))
           .build();
     }
 
@@ -167,7 +162,7 @@ public class MimModelMapper {
         .name(dataElement.getNaam())
         .identifier(dataElement.isIdentificerend())
         .target(toObjectTypeRef(dataElement.getDatatype()))
-        .cardinality(getCardinalityOrDefault(dataElement.getKardinaliteit(), Cardinality.OPTIONAL))
+        .multiplicity(getMultiplicityOrDefault(dataElement.getKardinaliteit(), Multiplicity.OPTIONAL))
         .build();
   }
 
@@ -176,9 +171,9 @@ public class MimModelMapper {
         .name(relatiesoort.getNaam())
         .identifier(relatiesoort.isIdentificerend())
         .target(toObjectTypeRef(relatiesoort.getDoel()))
-        .cardinality(getCardinalityOrDefault(relatiesoort.getKardinaliteit(), Cardinality.OPTIONAL))
+        .multiplicity(getMultiplicityOrDefault(relatiesoort.getKardinaliteit(), Multiplicity.OPTIONAL))
         .inverseName(relatiesoort.getInverseNaam())
-        .inverseCardinality(getCardinalityOrDefault(relatiesoort.getInverseKardinaliteit(), Cardinality.MULTI))
+        .inverseMultiplicity(getMultiplicityOrDefault(relatiesoort.getInverseKardinaliteit(), Multiplicity.MULTI))
         .build();
   }
 
@@ -186,7 +181,7 @@ public class MimModelMapper {
     return Relation.builder()
         .name(gegevensgroep.getNaam())
         .target(toObjectTypeRef(gegevensgroep.getType()))
-        .cardinality(getCardinalityOrDefault(gegevensgroep.getKardinaliteit(), Cardinality.OPTIONAL))
+        .multiplicity(getMultiplicityOrDefault(gegevensgroep.getKardinaliteit(), Multiplicity.OPTIONAL))
         .build();
   }
 
