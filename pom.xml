@@ -36,18 +36,18 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <orchestrate.version>0.1.9-SNAPSHOT</orchestrate.version>
         <mim-sdk.version>1.1.0</mim-sdk.version>
-        <lombok.version>1.18.34</lombok.version>
+        <lombok.version>1.18.36</lombok.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <auto-service.version>1.1.1</auto-service.version>
-        <junit.version>5.11.0</junit.version>
+        <junit.version>5.11.3</junit.version>
         <assertj.version>3.26.3</assertj.version>
-        <mockito.version>5.13.0</mockito.version>
+        <mockito.version>5.14.2</mockito.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
-        <sonar-maven-plugin.version>4.0.0.4121</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>5.0.0.4389</sonar-maven-plugin.version>
         <sonar.organization>imx-org</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>3.5.0</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.5.2</maven-failsafe-plugin.version>
         <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
         <!-- Dummy property to avoid JVM startup error in IDEs -->
         <surefire.jacoco.args />
