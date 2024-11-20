@@ -10,23 +10,22 @@ import nl.geostandaarden.mim.parser.xml.ModelParser;
 @AutoService(ModelLoader.class)
 public final class MimModelLoader implements ModelLoader {
 
-  @Override
-  public String getName() {
-    return "mim";
-  }
+    @Override
+    public String getName() {
+        return "mim";
+    }
 
-  @Override
-  public Model load(String location, ValueTypeRegistry valueTypeRegistry) {
-    var resourcePath = ResourceLoaders.getResource(location)
-        .orElseThrow(() -> new RuntimeException("Could not load MIM model."));
+    @Override
+    public Model load(String location, ValueTypeRegistry valueTypeRegistry) {
+        var resourcePath = ResourceLoaders.getResource(location)
+                .orElseThrow(() -> new RuntimeException("Could not load MIM model."));
 
-    return loadModel(resourcePath, valueTypeRegistry);
-  }
+        return loadModel(resourcePath, valueTypeRegistry);
+    }
 
-  private Model loadModel(Path path, ValueTypeRegistry valueTypeRegistry) {
-    var mimModel = ModelParser.parse(path);
+    private Model loadModel(Path path, ValueTypeRegistry valueTypeRegistry) {
+        var mimModel = ModelParser.parse(path);
 
-    return new MimModelMapper(valueTypeRegistry)
-        .fromModel(mimModel);
-  }
+        return new MimModelMapper(valueTypeRegistry).fromModel(mimModel);
+    }
 }

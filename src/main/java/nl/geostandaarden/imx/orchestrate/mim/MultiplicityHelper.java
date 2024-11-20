@@ -12,19 +12,19 @@ import nl.geostandaarden.mim.model.Kardinaliteit;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class MultiplicityHelper {
 
-  public static Multiplicity getMultiplicityOrDefault(Kardinaliteit kardinaliteit, Multiplicity defaultMultiplicity) {
-    if (kardinaliteit == null) {
-      return defaultMultiplicity;
-    }
+    public static Multiplicity getMultiplicityOrDefault(Kardinaliteit kardinaliteit, Multiplicity defaultMultiplicity) {
+        if (kardinaliteit == null) {
+            return defaultMultiplicity;
+        }
 
-    if (kardinaliteit.isMulti()) {
-      return MULTI;
-    }
+        if (kardinaliteit.isMulti()) {
+            return MULTI;
+        }
 
-    if (kardinaliteit.getMin() == 0) {
-      return OPTIONAL;
-    }
+        if (kardinaliteit.getMin() == 0) {
+            return OPTIONAL;
+        }
 
-    return REQUIRED;
-  }
+        return REQUIRED;
+    }
 }

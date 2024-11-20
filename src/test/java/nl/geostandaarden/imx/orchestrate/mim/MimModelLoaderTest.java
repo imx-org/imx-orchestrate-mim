@@ -11,16 +11,15 @@ import org.junit.jupiter.api.Test;
 
 class MimModelLoaderTest {
 
-  @Test
-  void test() throws URISyntaxException {
-    var sourcePath = Path.of(ClassLoader.getSystemResource("Fietsenwinkel.xml").toURI());
-    var mimModel = ModelParser.parse(sourcePath);
-    var valueTypeRegistry = new ValueTypeRegistry()
-        .register(new GeometryTypeFactory());
+    @Test
+    void test() throws URISyntaxException {
+        var sourcePath =
+                Path.of(ClassLoader.getSystemResource("Fietsenwinkel.xml").toURI());
+        var mimModel = ModelParser.parse(sourcePath);
+        var valueTypeRegistry = new ValueTypeRegistry().register(new GeometryTypeFactory());
 
-    var model = new MimModelMapper(valueTypeRegistry)
-        .fromModel(mimModel);
+        var model = new MimModelMapper(valueTypeRegistry).fromModel(mimModel);
 
-    assertThat(model).isNotNull();
-  }
+        assertThat(model).isNotNull();
+    }
 }
