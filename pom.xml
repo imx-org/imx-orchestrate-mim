@@ -49,7 +49,7 @@
         <sonar.organization>imx-org</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>3.5.2</maven-failsafe-plugin.version>
+        <maven-failsafe-plugin.version>3.5.3</maven-failsafe-plugin.version>
         <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
         <!-- Dummy property to avoid JVM startup error in IDEs -->
         <surefire.jacoco.args />
