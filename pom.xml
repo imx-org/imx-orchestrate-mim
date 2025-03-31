@@ -36,7 +36,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <orchestrate.version>0.1.14</orchestrate.version>
         <mim-sdk.version>1.1.0</mim-sdk.version>
-        <lombok.version>1.18.36</lombok.version>
+        <lombok.version>1.18.38</lombok.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <auto-service.version>1.1.1</auto-service.version>
         <junit.version>5.12.1</junit.version>
